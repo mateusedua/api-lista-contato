@@ -1,13 +1,18 @@
 import { Hono } from "hono";
 import auth from "../middleware/auth";
+import getCategoriaService from "../service/categoria-service";
 
-const categoriaRouter = new Hono();
+type Bindings = {
+    DB:D1Database
+}
 
-categoriaRouter.get('/',auth,(c) => {
+const categoriaRouter = new Hono<{Bindings: Bindings}>();
 
-    console.log(c.get('jwtPayload'))
+categoriaRouter.get('/',auth,async(c) => {
+    
+    const result = await getCategoriaService(c.env.DB)
 
-    return c.json({})
+    return c.json(result)
 })
 
 export default categoriaRouter;
