@@ -3,13 +3,13 @@ import auth from "../middleware/auth";
 import getCategoriaService from "../service/categoria-service";
 
 type Bindings = {
-    DB:D1Database
+    DB: D1Database
 }
 
-const categoriaRouter = new Hono<{Bindings: Bindings}>();
+const categoriaRouter = new Hono<{ Bindings: Bindings }>();
 
-categoriaRouter.get('/',auth,async(c) => {
-    
+categoriaRouter.get('/', async (c) => {
+
     const result = await getCategoriaService(c.env.DB)
 
     return c.json(result)
