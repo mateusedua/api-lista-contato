@@ -20,6 +20,10 @@ contatoRouter.get('/one/:idcontato', async (c) => {
 
     const result = await contatoService.getOneContatoService(c.env.DB, idcontato)
 
+    if (result.length === 0) {
+        return c.json({}, 400)
+    }
+
     return c.json(result)
 })
 
