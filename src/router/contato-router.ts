@@ -15,4 +15,12 @@ contatoRouter.get('/:iduser', async (c) => {
     return c.json(result)
 })
 
+contatoRouter.get('/one/:idcontato', async (c) => {
+    const idcontato = c.req.param('idcontato')
+
+    const result = await contatoService.getOneContatoService(c.env.DB, idcontato)
+
+    return c.json(result)
+})
+
 export default contatoRouter;
