@@ -27,4 +27,12 @@ contatoRouter.get('/one/:idcontato', async (c) => {
     return c.json(result)
 })
 
+contatoRouter.post('/alterar', async (c) => {
+    const contato = await c.req.json()
+
+    const result = await contatoService.updateContatoService(c.env.DB, contato.data, contato.idcontato)
+
+    return c.json(result)
+})
+
 export default contatoRouter;

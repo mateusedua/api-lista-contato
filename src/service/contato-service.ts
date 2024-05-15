@@ -1,4 +1,5 @@
 import contatoData from "../data/contato-data"
+import { contatoProps } from "../types/types"
 
 const getContatoService = async (DB: D1Database, idUser: string) => {
     const result = await contatoData.getContato(DB, idUser)
@@ -10,7 +11,13 @@ const getOneContatoService = async (DB: D1Database, idUser: string) => {
     return result
 }
 
+const updateContatoService = async (DB: D1Database, contato: contatoProps, idContato: string) => {
+    const result = await contatoData.updateContato(DB, contato, idContato)
+    return result
+}
+
 export default {
     getContatoService,
-    getOneContatoService
+    getOneContatoService,
+    updateContatoService
 }
