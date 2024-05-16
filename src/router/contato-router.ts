@@ -35,4 +35,12 @@ contatoRouter.post('/alterar', async (c) => {
     return c.json(result)
 })
 
+contatoRouter.post('/cadastrar', async(c) => {
+    const contato = await c.req.json()
+
+    const result = await contatoService.insertContatoService(c.env.DB, contato.data,'09f02ace9d36ad7a583e4fb252fb957e')
+
+    return c.json(result)
+})
+
 export default contatoRouter;

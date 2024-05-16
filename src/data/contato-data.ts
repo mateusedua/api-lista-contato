@@ -1,4 +1,6 @@
+import {v4 as uuidv4} from 'uuid';
 import { contatoProps } from "../types/types"
+
 
 const getContato = async (DB: D1Database, idUser: string) => {
     const stmt = DB.prepare(`
@@ -47,7 +49,22 @@ const updateContato = async (DB: D1Database, contato: contatoProps, idContato: s
         email = ?3,
         celular = ?4
         where id_contato = ?5
-    `).bind(contato.categoria, contato.nome, contato.email, contato.telefone, idContato)
+    `).bind(contato.categoria, contato.nome, contato.email, contato.celular, idContato)
+
+    const { success } = await stmt.run()
+
+    return success
+}
+
+const insertContato = async (DB: D1Database, contato: contatoProps, idUser: string) => {
+
+    const uiid = uuidv4()
+    
+    
+    const stmt = DB.prepare(`
+        insert into contato(id_contato, id_categoria, id_usuario, nome, email, celular)
+        values(?1,?2,?3,?4,?5,?6)
+    `).bind(uiid,contato.categoria, idUser, contato.nome, contato.email, contato.celular)
 
     const { success } = await stmt.run()
 
@@ -57,5 +74,6 @@ const updateContato = async (DB: D1Database, contato: contatoProps, idContato: s
 export default {
     getContato,
     getOneContato,
-    updateContato
+    updateContato,
+    insertContato
 }

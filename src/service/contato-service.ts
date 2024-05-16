@@ -16,8 +16,14 @@ const updateContatoService = async (DB: D1Database, contato: contatoProps, idCon
     return result
 }
 
+const insertContatoService = async (DB:D1Database, contato: contatoProps, idUser: string) => {
+    const result = await contatoData.insertContato(DB, contato, idUser)
+    return result
+}
+
 export default {
     getContatoService,
     getOneContatoService,
-    updateContatoService
+    updateContatoService,
+    insertContatoService
 }
