@@ -21,9 +21,15 @@ const insertContatoService = async (DB:D1Database, contato: contatoProps, idUser
     return result
 }
 
+const deleteContatoService = async (DB:D1Database, idContato: string) => {
+    const result = await  contatoData.deleteContato(DB, idContato)
+    return result
+}
+
 export default {
     getContatoService,
     getOneContatoService,
     updateContatoService,
-    insertContatoService
+    insertContatoService,
+    deleteContatoService
 }

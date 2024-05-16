@@ -27,7 +27,7 @@ contatoRouter.get('/one/:idcontato', async (c) => {
     return c.json(result)
 })
 
-contatoRouter.post('/alterar', async (c) => {
+contatoRouter.put('/alterar', async (c) => {
     const contato = await c.req.json()
 
     const result = await contatoService.updateContatoService(c.env.DB, contato.data, contato.idcontato)
@@ -40,6 +40,14 @@ contatoRouter.post('/cadastrar', async(c) => {
 
     const result = await contatoService.insertContatoService(c.env.DB, contato.data,'09f02ace9d36ad7a583e4fb252fb957e')
 
+    return c.json(result)
+})
+
+contatoRouter.delete('/deletar', async(c) => {
+    const data = await c.req.json()
+
+    const result = await contatoService.deleteContatoService(c.env.DB, data.idcontato)
+    
     return c.json(result)
 })
 

@@ -71,9 +71,21 @@ const insertContato = async (DB: D1Database, contato: contatoProps, idUser: stri
     return success
 }
 
+const deleteContato = async (DB: D1Database, idContato: string) => {
+    const stmt = DB.prepare(`
+        delete from contato
+        where id_contato = ?
+    `).bind(idContato)
+
+    const { success } = await stmt.run()
+
+    return success
+}
+
 export default {
     getContato,
     getOneContato,
     updateContato,
-    insertContato
+    insertContato,
+    deleteContato
 }
