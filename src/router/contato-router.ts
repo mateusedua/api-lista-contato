@@ -7,10 +7,10 @@ type Bindings = {
 
 const contatoRouter = new Hono<{ Bindings: Bindings }>();
 
-contatoRouter.get('/:iduser', async (c) => {
-    const iduser = c.req.param('iduser')
+contatoRouter.get('/:iduser/search/:search?', async (c) => {
+    const {iduser, search} = c.req.param()
 
-    const result = await contatoService.getContatoService(c.env.DB, iduser)
+    const result = await contatoService.getContatoService(c.env.DB, iduser, search === undefined ? "" : search)
 
     return c.json(result)
 })

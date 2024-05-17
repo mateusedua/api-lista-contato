@@ -2,7 +2,8 @@ import {v4 as uuidv4} from 'uuid';
 import { contatoProps } from "../types/types"
 
 
-const getContato = async (DB: D1Database, idUser: string) => {
+const getContato = async (DB: D1Database, idUser: string, search?:string) => {
+
     const stmt = DB.prepare(`
     select id_contato,
     co.id_categoria,
@@ -14,7 +15,8 @@ const getContato = async (DB: D1Database, idUser: string) => {
     categoria ca
     where co.id_categoria = ca.id_categoria
     and co.id_usuario = ?
-    `).bind(idUser)
+    and nome like ?
+    `).bind(idUser,`%${search}%`)
 
     const { results } = await stmt.all()
 
@@ -22,6 +24,9 @@ const getContato = async (DB: D1Database, idUser: string) => {
 }
 
 const getOneContato = async (DB: D1Database, idContato: string) => {
+
+    console.log(idContato)
+
     const stmt = DB.prepare(`
     select id_contato,
     co.id_categoria,
