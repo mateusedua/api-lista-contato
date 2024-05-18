@@ -4,3 +4,10 @@ export type contatoProps = {
     celular: string,
     categoria: string
 }
+
+export type userProps = {
+    nome: string,
+    email: string,
+    password: string,
+    cofirmadPassword: string
+}
