@@ -39,7 +39,7 @@ const loginService = async (DB:D1Database, user: userProps, key: string) => {
     const passwordCompare = await compare(user.password,userConvert.password)
 
     if(!passwordCompare){
-        throw new HTTPException(404, {message: 'password not allowed'})
+        throw new HTTPException(400, {message: 'password not allowed'})
     }
 
     const token = await jwt.encode({
