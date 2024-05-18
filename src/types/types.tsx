@@ -6,8 +6,8 @@ export type contatoProps = {
 }
 
 export type userProps = {
-    nome: string,
+    nome?: string,
     email: string,
     password: string,
-    cofirmadPassword: string
+    cofirmadPassword?: string
 }
