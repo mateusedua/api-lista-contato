@@ -1,9 +1,9 @@
 import { userProps } from "../types/types"
 import {v4 as uuidv4} from 'uuid';
 
-const getEmail = async (DB: D1Database, email: string) => {
+const getDataUser = async (DB: D1Database, email: string) => {
     const stmt = DB.prepare(`
-        select id_usuario from usuario where email = ?
+        select id_usuario,nome,password from usuario where email = ?
     `).bind(email)
 
     const values = await stmt.first()
@@ -25,7 +25,9 @@ const insertUser = async(DB: D1Database, user: userProps) => {
     return success
 }
 
+
+
 export default {
-    getEmail,
+    getDataUser,
     insertUser
 }
