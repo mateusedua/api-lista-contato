@@ -3,6 +3,7 @@ import { cors } from 'hono/cors'
 import categoriaRouter from './router/categoria-router'
 import contatoRouter from './router/contato-router'
 import userRouter from './router/user-router'
+import { HTTPException } from 'hono/http-exception'
 
 const app = new Hono()
 
@@ -12,8 +13,12 @@ app.route('/api/contato', contatoRouter)
 app.route('/api/user', userRouter)
 
 app.onError((err, c) => {
-  console.log(err)
+  if(err instanceof HTTPException){
+    return err.getResponse()
+  }
+
   return c.text('Internal Server Error', 500)
+  
 })
 
 export default app
