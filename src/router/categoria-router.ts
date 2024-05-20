@@ -8,7 +8,7 @@ type Bindings = {
 
 const categoriaRouter = new Hono<{ Bindings: Bindings }>();
 
-categoriaRouter.get('/', async (c) => {
+categoriaRouter.get('/', auth, async (c) => {
 
     const result = await getCategoriaService(c.env.DB)
 

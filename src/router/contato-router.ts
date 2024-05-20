@@ -1,5 +1,6 @@
 import { Hono } from "hono";
 import contatoService from "../service/contato-service";
+import auth from "../middleware/auth";
 
 type Bindings = {
     DB: D1Database
@@ -7,15 +8,16 @@ type Bindings = {
 
 const contatoRouter = new Hono<{ Bindings: Bindings }>();
 
-contatoRouter.get('/:iduser/search/:search?', async (c) => {
-    const {iduser, search} = c.req.param()
+contatoRouter.get('/:search?', auth, async (c) => {
+    const { search } = c.req.param()
+    const user = c.get('jwtPayload')
 
-    const result = await contatoService.getContatoService(c.env.DB, iduser, search === undefined ? "" : search)
+    const result = await contatoService.getContatoService(c.env.DB, user.idUser, search === undefined ? "" : search)
 
     return c.json(result)
 })
 
-contatoRouter.get('/one/:idcontato', async (c) => {
+contatoRouter.get('/one/:idcontato', auth, async (c) => {
     const idcontato = c.req.param('idcontato')
 
     const result = await contatoService.getOneContatoService(c.env.DB, idcontato)
@@ -27,7 +29,7 @@ contatoRouter.get('/one/:idcontato', async (c) => {
     return c.json(result)
 })
 
-contatoRouter.put('/alterar', async (c) => {
+contatoRouter.put('/alterar', auth, async (c) => {
     const contato = await c.req.json()
 
     const result = await contatoService.updateContatoService(c.env.DB, contato.data, contato.idcontato)
@@ -35,19 +37,19 @@ contatoRouter.put('/alterar', async (c) => {
     return c.json(result)
 })
 
-contatoRouter.post('/cadastrar', async(c) => {
+contatoRouter.post('/cadastrar', auth, async (c) => {
     const contato = await c.req.json()
-
-    const result = await contatoService.insertContatoService(c.env.DB, contato.data,'09f02ace9d36ad7a583e4fb252fb957e')
+    const user = c.get('jwtPayload')
+    const result = await contatoService.insertContatoService(c.env.DB, contato.data, user.idUser)
 
     return c.json(result)
 })
 
-contatoRouter.delete('/deletar', async(c) => {
+contatoRouter.delete('/deletar', auth, async (c) => {
     const data = await c.req.json()
 
     const result = await contatoService.deleteContatoService(c.env.DB, data.idcontato)
-    
+
     return c.json(result)
 })
 
