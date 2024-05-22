@@ -32,9 +32,3 @@ insert into categoria(id_categoria, categoria)
 values('2e6f9b0d5885b6010f9167787445617f553a735f', 'Particular'),
 ('aad5f3e1f7d8fc48378d89fc4483bb84','Trabalho'),
 ('7fd3316897b06f6c7ad6888e1f3cdec8','Instagram');
-
-insert into usuario(id_usuario, nome, email, password)
-values('09f02ace9d36ad7a583e4fb252fb957e', 'Mateus Eduardo', 'mateus@gmail.com', '123');
-
-insert into contato(id_contato, id_categoria, id_usuario, nome, email, celular)
-values('d42654ccb4b4a3c937d5d1821732b445','2e6f9b0d5885b6010f9167787445617f553a735f','09f02ace9d36ad7a583e4fb252fb957e','Teste de Contato', 'mateus@gmail.com', '(43) 99698-0719');
