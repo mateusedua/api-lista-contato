@@ -22,7 +22,7 @@ const insertContatoService = async (DB:D1Database, contato: contatoProps, idUser
 }
 
 const deleteContatoService = async (DB:D1Database, idContato: string) => {
-    const result = await  contatoData.deleteContato(DB, idContato)
+    const result = await contatoData.deleteContato(DB, idContato)
     return result
 }
 
