@@ -50,7 +50,13 @@ const loginService = async (DB:D1Database, user: userProps, key: string) => {
     return token
 }
 
+const getOneUserService = async (DB: D1Database, idUser: string) => {
+    const result = await userData.getOneUser(DB, idUser)
+    return result
+}
+
 export default {
     cadastroService,
-    loginService
+    loginService,
+    getOneUserService
 }

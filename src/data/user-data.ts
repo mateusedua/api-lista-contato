@@ -25,9 +25,21 @@ const insertUser = async(DB: D1Database, user: userProps) => {
     return success
 }
 
+const getOneUser = async(DB: D1Database, idUser: string) => {
+    const stmt = DB.prepare(`
+        select nome from usuario
+        where id_usuario = ?
+    `).bind(idUser)
+
+    const {results} = await stmt.all()
+
+    return results
+
+}
 
 
 export default {
     getDataUser,
-    insertUser
+    insertUser,
+    getOneUser
 }

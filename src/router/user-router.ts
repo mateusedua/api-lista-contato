@@ -31,4 +31,12 @@ userRouter.post('/auth', auth, async (c) => {
     return c.json({})
 })
 
+userRouter.get('/', auth, async(c) => {
+    const user = c.get('jwtPayload')
+    
+    const result = await userService.getOneUserService(c.env.DB, user.idUser)
+
+    return c.json(result[0])
+})
+
 export default userRouter;
